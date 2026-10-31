@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "brand": "EMPRESA FANTASMA",
+    "myTests": "Mis tests",
+    "language": "Idioma"
+  },
+  "landing": {
+    "title": "Practica el examen teórico de la DGT",
+    "free": "No queremos dinero. No pedimos registro ni login. Entra y practica.",
+    "why": "Lo hicimos porque estábamos hartos de no encontrar una web decente para hacer tests.",
+    "note": "Las preguntas están en español, como en el examen real.",
+    "cta": "Comienza a practicar"
+  },
+  "test": {
+    "loading": "Cargando test…",
+    "notFound": "Test no encontrado.",
+    "question": "Pregunta {current} de {total}",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "timer": "Tiempo restante",
+    "result": "Ver resultado",
+    "errors": "Errores: {count}",
+    "finishFailed": "No se pudo cerrar el test. Recarga para reintentar."
+  },
+  "myTests": {
+    "title": "Mis tests",
+    "score": "{correct}/{total}",
+    "newTest": "Prueba un test nuevo",
+    "review": "Ver respuestas",
+    "loading": "Cargando tus tests…",
+    "started": "Pruebas comenzadas",
+    "completed": "Pruebas terminadas",
+    "continue": "Continuar"
+  },
+  "review": {
+    "title": "Test del {date}",
+    "score": "{mistakes} fallos de {total}",
+    "passed": "Aprobado",
+    "failed": "Suspendido",
+    "yourAnswer": "Tu respuesta",
+    "blank": "Sin responder",
+    "back": "Volver a mis tests",
+    "notFound": "Este test aún no está terminado."
+  }
+}

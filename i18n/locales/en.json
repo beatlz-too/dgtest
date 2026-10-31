@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "brand": "EMPRESA FANTASMA",
+    "myTests": "My tests",
+    "language": "Language"
+  },
+  "landing": {
+    "title": "Practice the DGT theory test",
+    "free": "We don't want your money. We don't ask you to sign up or log in. Open it and practice.",
+    "why": "We built this because we were tired of not being able to find a decent test site.",
+    "note": "Questions are in Spanish, just like the real exam.",
+    "cta": "Start practicing"
+  },
+  "test": {
+    "loading": "Loading test…",
+    "notFound": "Test not found.",
+    "question": "Question {current} of {total}",
+    "previous": "Previous",
+    "next": "Next",
+    "timer": "Time left",
+    "result": "See result",
+    "errors": "Errors: {count}",
+    "finishFailed": "Could not close your test. Reload to try again."
+  },
+  "myTests": {
+    "title": "My tests",
+    "score": "{correct}/{total}",
+    "newTest": "Try a new test",
+    "review": "See answers",
+    "loading": "Loading your tests…",
+    "started": "Started tests",
+    "completed": "Completed tests",
+    "continue": "Continue"
+  },
+  "review": {
+    "title": "Test of {date}",
+    "score": "{mistakes} mistakes out of {total}",
+    "passed": "Passed",
+    "failed": "Failed",
+    "yourAnswer": "Your answer",
+    "blank": "Not answered",
+    "back": "Back to my tests",
+    "notFound": "This test is not finished yet."
+  }
+}
