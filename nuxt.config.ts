@@ -20,6 +20,8 @@ export default defineNuxtConfig({
   /// Server-only keys here, browser-safe ones under `public`. Overridden by NUXT_* env vars.
   runtimeConfig: {
     dbPath: '.data/dgtest.sqlite',
+    /// The question bank's source file, rewritten when an explanation is added.
+    questionsPath: 'server/assets/questions.json',
   },
   /// Test and history pages live on browser state (user id, answers, timer), so render them client-side.
   routeRules: {

@@ -7,9 +7,17 @@ const { question, disabled = false, canUndo = false } = defineProps<{
   disabled?: boolean
   canUndo?: boolean
 }>()
-const emit = defineEmits<{ choose: [letter: AnswerLetter], undo: [] }>()
+const emit = defineEmits<{ choose: [letter: AnswerLetter], undo: [], explain: [explanation: string] }>()
 const { t } = useI18n()
 const isWrong = computed(() => !!question.answer && question.answer !== question.correctAnswer)
+/// "Add explanation" only appears once the AI Mode search was opened for this question.
+const askedFor = ref<number>()
+const writing = ref(false)
+
+function save(explanation: string) {
+  writing.value = false
+  emit('explain', explanation)
+}
 
 /// Once answered, the question locks: the right answer turns green, and a wrong pick turns red.
 function answerClass(letter: AnswerLetter): string {
@@ -63,6 +71,36 @@ function answerClass(letter: AnswerLetter): string {
       >
         {{ t('test.undo') }}
       </NbButton>
+      <p
+        v-if="question.answer && question.explanation"
+        class="whitespace-pre-line italic"
+      >
+        {{ question.explanation }}
+      </p>
+      <div
+        v-else-if="question.explanationUrl"
+        class="flex flex-wrap gap-3"
+      >
+        <NbButton
+          :to="question.explanationUrl"
+          target="_blank"
+          variant="light"
+          @click="askedFor = question.id"
+        >
+          {{ t('test.explanation') }}
+        </NbButton>
+        <NbButton
+          v-if="askedFor === question.id"
+          @click="writing = true"
+        >
+          {{ t('test.addExplanation') }}
+        </NbButton>
+      </div>
+      <TestExplanationModal
+        v-if="writing"
+        @save="save"
+        @close="writing = false"
+      />
     </div>
   </div>
 </template>

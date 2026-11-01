@@ -1837,7 +1837,8 @@
         "text": "De balizamiento fijo."
       }
     ],
-    "correctAnswer": "C"
+    "correctAnswer": "C",
+    "explanation": "La respuesta correcta es la C) De balizamiento fijo.\n\nExplicación\n\nEn España, el Reglamento General de Circulación establece un orden de prioridad estricto entre los diferentes tipos de señales de tráfico cuando existe una contradicción entre ellas. El orden, de mayor a menor prioridad, es el siguiente:\n1. Señales y órdenes de los agentes de circulación (máxima prioridad).\n2. Señalización circunstancial que modifique el régimen normal de utilización de la vía y señales de balizamiento (fijo o variable).\n3. Semáforos.\n4. Señales verticales de circulación.\n5. Marcas viales o señales horizontales (mínima prioridad).\nComo las señales de balizamiento fijo ocupan el segundo lugar en el orden de prioridad y las señales verticales ocupan el cuarto lugar, la señal de balizamiento fijo siempre prevalece sobre la vertical.\nNota sobre la opción B: La regla de la señal más restrictiva solo se aplica cuando la contradicción ocurre entre dos señales del mismo tipo o nivel de prioridad (por ejemplo, dos señales verticales distintas en el mismo tramo). En este caso, al ser de distinto tipo, se aplica directamente el orden de la lista anterior."
   },
   {
     "id": 93,
@@ -2097,7 +2098,8 @@
         "text": "Con una luz blanca y un reflectante blanco, de noche o en condiciones que disminuyan sensiblemente la visibilidad."
       }
     ],
-    "correctAnswer": "A"
+    "correctAnswer": "A",
+    "explanation": "La respuesta correcta es la A) Con una luz blanca, de noche o en condiciones que disminuyan sensiblemente la visibilidad.\n\nExplicación:\n\nDe acuerdo con el Reglamento General de Circulación de la DGT, la normativa distingue claramente la señalización según el momento del día y las condiciones de la vía:\n1. De día y con buena visibilidad: Si la carga sobresale por la parte delantera de un vehículo autorizado (como un vehículo de transporte de mercancías), no es necesario colocar ninguna señalización específica en el frente.\n2. De noche o con baja visibilidad: Entre la puesta y la salida del sol, o cuando haya condiciones meteorológicas adversas (como niebla o lluvia intensa), es obligatorio señalizarla en la parte delantera exclusivamente con una luz blanca para advertir a los conductores que vienen de frente.\n¿Por qué se descartan las otras opciones?\n• La B es incorrecta porque durante el día (con buena visibilidad) no hace falta llevarla encendida.\n• La C es incorrecta porque la normativa general del reglamento para la carga delantera solo exige la luz blanca, a diferencia de los laterales o la parte trasera que siguen otras reglas (como el panel reflectante V-20 para atrás).\nSi estás estudiando para el examen teórico de conducir, ¿te gustaría que hagamos un repaso rápido sobre cómo se señaliza la carga cuando sobresale por la parte trasera o los laterales?"
   },
   {
     "id": 106,
@@ -2237,7 +2239,8 @@
         "text": "Sí, porque se trata de una vía interurbana."
       }
     ],
-    "correctAnswer": "A"
+    "correctAnswer": "A",
+    "explanation": "La respuesta correcta es la A) No.\n\nExplicación\n\nSegún el Reglamento General de Circulación en España, el hecho de que un vehículo avance más rápidamente por un carril de aceleración o de deceleración (así como por carriles destinados exclusivamente al tráfico de determinados vehículos) que los que circulan por los carriles normales, no se considera adelantamiento.\nEn estas zonas, la diferencia de velocidad se debe a la propia maniobra de incorporación o salida de la vía principal, por lo que las reglas habituales del adelantamiento (como la prohibición de rebasar por la derecha) no se aplican en esta situación específica."
   },
   {
     "id": 113,
@@ -6237,7 +6240,8 @@
         "text": "Un carril adicional circunstancial."
       }
     ],
-    "correctAnswer": "C"
+    "correctAnswer": "C",
+    "explanation": "La respuesta correcta es la C) Un carril adicional circunstancial.\n\n💡 Explicación\n\nEl carril adicional circunstancial es una medida temporal que la Dirección General de Tráfico (DGT) adopta en carreteras de doble sentido de circulación con arcenes suficientemente anchos para mejorar la fluidez y evitar atascos.\n• Cómo se forma: Mediante una hilera de conos, se redistribuye el espacio de la calzada obligando a los vehículos a utilizar los arcenes. De este modo, una vía que normalmente tiene solo dos carriles pasa a disponer provisionalmente de tres carriles (dos en el sentido de mayor congestión y uno en el contrario).\n• Normas de circulación obligatorias:\n\t• Alumbrado: Todos los vehículos que circulen por esta calzada (tanto en el carril adicional como en los normales) deben llevar encendida la luz de corto alcance o cruce tanto de día como de noche.\n\t• Velocidad: Se debe circular a una velocidad máxima de 80 km/h y una mínima de 60 km/h, a menos que las señales indiquen otra velocidad específica.\n\t• Prohibición: Está terminantemente prohibido atravesar la línea de conos.\n\n❌ ¿Por qué no son las otras opciones?\n\n• A) Carril reversible: Este tipo de carril está integrado de forma permanente en la calzada dentro de poblados o grandes avenidas. Se reconoce porque está delimitado a ambos lados por líneas discontinuas dobles en el suelo y regulado por semáforos de carril en forma de aspa o flecha, no por conos.\n• B) Carril VAO (Vehículos de Alta Ocupación): Son carriles fijos reservados para vehículos que transportan a un número mínimo de personas o para autobuses. Están indicados permanentemente mediante señales verticales y marcas viales con las letras \"VAO\" escritas sobre el asfalto."
   },
   {
     "id": 313,
@@ -6977,7 +6981,8 @@
         "text": "Los que circulen por la vía pavimentada."
       }
     ],
-    "correctAnswer": "C"
+    "correctAnswer": "C",
+    "explanation": "La respuesta correcta es la C) Los que circulen por la vía pavimentada.\n\nExplicación:\n\nDe acuerdo con el Reglamento General de Circulación, existen ciertas normas de prioridad en intersecciones cuando no hay señales de tráfico (como un STOP o un Ceda el Paso) que regulen la preferencia.\nLa norma general dicta que se debe ceder el paso a los vehículos que se aproximen por la derecha. Sin embargo, existen excepciones fundamentales a esta norma general. Una de ellas establece que los vehículos que circulan por una vía pavimentada tienen preferencia de paso sobre los que pretenden acceder a ella desde una vía sin pavimentar (un camino de tierra o grava), independientemente de la dirección por la que se aproximen.\nPor lo tanto:\n• La opción A es incorrecta porque la anchura de la vía no determina la preferencia.\n• La opción B es incorrecta porque, aunque es la norma general, la presencia de una vía pavimentada frente a una sin pavimentar constituye una excepción directa que anula la regla de la derecha.\n¿Estás estudiando para obtener el permiso de conducir en España? Si quieres, te puedo ayudar a resolver más preguntas de test o explicarte otras dudas sobre normas de prioridad y señales."
   },
   {
     "id": 350,
@@ -9857,7 +9862,8 @@
         "text": "Un consumo excesivo de alcohol, medicamentos o drogas de abuso."
       }
     ],
-    "correctAnswer": "B"
+    "correctAnswer": "B",
+    "explanation": "La respuesta correcta es la B) Un mal uso del cinturón de seguridad. \n\nExplicación:\n\nEl efecto submarino ocurre durante una frenada brusca o un impacto frontal cuando el cuerpo del ocupante no está bien sujeto por el sistema de retención. Al no encontrar la resistencia adecuada, el cuerpo presiona el asiento hacia abajo y se desliza por debajo de la banda abdominal del cinturón de seguridad. \nEste fenómeno es sumamente peligroso por varias razones:\n• Lesiones internas graves: Al deslizarse el cuerpo, la banda del cinturón deja de apoyarse en los huesos de la cadera (crestas ilíacas) y pasa a presionar directamente sobre la zona blanda del abdomen, lo que puede dañar severamente órganos internos.\n• Golpes contra el habitáculo: El conductor o pasajero continúa desplazándose hacia adelante, lo que multiplica el riesgo de chocar violentamente las piernas, el pecho o la cabeza contra el volante, el salpicadero o las partes inferiores del vehículo.\n¿Cómo se produce este mal uso?\nSuele originarse por llevar el cinturón holgado, usar cojines en el asiento, vestir ropa demasiado gruesa (como abrigos grandes) o por colocar el respaldo del asiento excesivamente inclinado hacia atrás."
   },
   {
     "id": 494,
@@ -10677,7 +10683,8 @@
         "text": "Solo cuando circule por una travesía."
       }
     ],
-    "correctAnswer": "A"
+    "correctAnswer": "A",
+    "explanation": "La respuesta correcta es la A) Sí, aunque puede encender la de largo alcance si no deslumbra a otros usuarios.\n\nExplicación detallada\n\nSegún el Reglamento General de Circulación en España para vías interurbanas insuficientemente iluminadas:\n• Regala general (Largo alcance): Como norma general, todo vehículo que circule a más de 40 km/h por una vía interurbana insuficientemente iluminada debe llevar encendida la luz de largo alcance (carretera), siempre que no deslumbre a otros usuarios.\n• Excepción por velocidad (Corto alcance): Si el vehículo circula a menos de 40 km/h, la ley permite sustituir la luz de largo alcance por la de corto alcance (cruce) (junto con las luces de posición).\n• Opción permitida: Por lo tanto, a menos de 40 km/h sí puede circular únicamente con las luces de corto alcance y posición, pero sigue teniendo el derecho de encender las de largo alcance si las condiciones lo requieren y no deslumbra a nadie."
   },
   {
     "id": 535,
@@ -10937,7 +10944,8 @@
         "text": "debe ceder el paso a los vehículos que se acerquen tanto por la derecha como por la izquierda."
       }
     ],
-    "correctAnswer": "B"
+    "correctAnswer": "B",
+    "explanation": "La respuesta correcta es la B) se aplica la regla general de prioridad de paso.\n\nExplicación:\n\nEsta pregunta oficial de la Dirección General de Tráfico (DGT) hace referencia a la señal de peligro P-2 (un triángulo con borde rojo y fondo blanco que contiene una cruz negra en forma de \"X\")\n• Significado de la señal P-2: Advierte de la proximidad de una intersección en la que la prioridad no está regulada por señales específicas de preferencia (como un STOP o un Ceda el paso). Por lo tanto, obliga a aplicar la norma general de tráfico: ceder el paso a todo vehículo que se aproxime por la derecha.\n• Por qué las otras opciones son incorrectas:\n\t• La A describiría a las señales de prioridad en un cruce (como la familia P-1, que tienen una flecha gruesa y líneas finas laterales).\nSi estás estudiando para el examen teórico, ¿te gustaría que repasemos otras señales de prioridad e intersecciones que suelen causar confusión o prefieres realizar un test de práctica sobre este tema?"
   },
   {
     "id": 548,
@@ -11317,7 +11325,8 @@
         "text": "cuando circulen por un paso para ciclistas."
       }
     ],
-    "correctAnswer": "C"
+    "correctAnswer": "C",
+    "explanation": "La respuesta correcta es la C) cuando circulen por un paso para ciclistas.\n\nExplicación detallada\n\nDe acuerdo con el Artículo 64 del Reglamento General de Circulación en España, los conductores de bicicletas tienen prioridad de paso respecto a los vehículos a motor en los siguientes casos específicos:\n1. Vías ciclistas y espacios específicos: Cuando circulen por un carril-bici, un paso para ciclistas o un arcén debidamente señalizados.\n2. Giros de vehículos: Cuando un vehículo de motor gire a la derecha o a la izquierda para entrar en otra vía y haya un ciclista en sus proximidades.\n3. Grupos de ciclistas: Cuando circulen en grupo y el primer ciclista ya haya iniciado el cruce o haya entrado en una glorieta (en este caso, todo el grupo se considera una única unidad y tiene preferencia).\n\n¿Por qué las otras opciones son incorrectas?\n\n• A) En las zonas peatonales: En estas áreas, la prioridad absoluta la tienen los peatones, no los ciclistas. De hecho, la circulación de bicicletas en zonas peatonales suele estar muy restringida o regulada por ordenanzas municipales.\n• B) En todas las intersecciones: Las bicicletas no tienen prioridad por el simple hecho de serlo. En las intersecciones comunes donde no existan señales de tráfico (como un STOP o Ceda el Paso) ni un paso específico para ciclistas, se aplica la norma general de tráfico: ceder el paso a los vehículos que se aproximen por la derecha."
   },
   {
     "id": 567,

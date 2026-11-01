@@ -39,5 +39,6 @@ function answerClass(letter: AnswerLetter): string {
     >
       {{ t('review.blank') }}
     </p>
+    <slot />
   </NbCard>
 </template>

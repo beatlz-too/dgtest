@@ -15,7 +15,7 @@ saved and graded on the spot. Test content is Spanish and never translated; UI t
 
 | Thing | Where | Shape |
 |-------|-------|-------|
-| Question bank (766, read-only) | `server/assets/questions.json`, typed by `server/assets/questionBank.ts` | `Question` in `shared/types/tests.ts` |
+| Question bank (766; only `explanation` is ever written) | `server/assets/questions.json`, typed by `server/assets/questionBank.ts` | `Question` in `shared/types/tests.ts` |
 | Users | SQLite `users` | `id` (uuid), `created_at` |
 | Tests taken | SQLite `tests` | `Attempt` in `shared/types/attempts.ts` |
 | User id | browser localStorage `dgtest:userId` | uuid |
@@ -44,7 +44,8 @@ returns 404.
 | `POST /api/undo-answer` | `{ attemptId, position (1–30) }` | `AttemptCounters`, slot blank again; 409 answer not wrong or test completed |
 | `POST /api/resume-test` | `{ attemptId }` | `{ secondsLeft }`, clock running; 409 completed |
 | `POST /api/pause-test` | `{ attemptId }` | `{ isPaused: true }`, clock stopped |
-| `POST /api/finish-test` | `{ attemptId }` | `AttemptCounters`, blanks counted as errors; 409 while time is left |
+| `POST /api/finish-test` | `{ attemptId }` | `AttemptCounters`, blanks counted as errors; 409 while questions are blank and time is left |
+| `POST /api/question-explanation` | `{ questionId, explanation }` | `{ explanation }`, written to the bank file; 404 unknown question |
 | `GET /api/my-tests` | — | `AttemptSummary[]`: completed tests, newest first |
 | `GET /api/started-tests` | — | `StartedAttemptSummary[]`: tests not completed yet, newest first, with the first unanswered question |
 
@@ -54,7 +55,7 @@ returns 404.
 |-------|------|
 | `/` | Landing, CTA to `/test` |
 | `/test` | Starts a test, redirects to its question 1 |
-| `/test/:attemptId/:question` | One question. Top right: answered/30, errors, timer (red ≤ 5:00). Undo under the answers when the pick was wrong. Below `sm`, a fixed footer holds previous · errors · timer · next instead of the top-right bar. Previous/next; "See result" once completed. The clock runs only while this page is open |
+| `/test/:attemptId/:question` | One question. Top right: answered/30, errors, timer (red ≤ 5:00). Undo under the answers when the pick was wrong. Below `sm`, a fixed footer holds previous · errors · timer · next instead of the top-right bar. Previous/next; on question 30, next becomes "Finish" (enabled once all 30 are answered — answering never auto-completes, so undo still works). "See result" once completed. The clock runs only while this page is open |
 | `/my-tests` | "Started tests" (when any): one card per unfinished test, Continue opens its first unanswered question. Then a grid: "Try a new test" card and one card per completed test (green ≤ 3 errors, else red) |
 | `/my-tests/:attemptId` | Review of a completed test |
 
@@ -63,7 +64,8 @@ from localStorage.
 
 ## Configuration
 
-`NUXT_DB_PATH`: the SQLite file, default `.data/dgtest.sqlite`. Driver is Node's built-in
+`NUXT_DB_PATH`: the SQLite file, default `.data/dgtest.sqlite`. `NUXT_QUESTIONS_PATH`: the bank's
+JSON source, rewritten on each saved explanation, default `server/assets/questions.json`. Driver is Node's built-in
 `node:sqlite`.
 
 ## Key rules / Invariants
@@ -73,8 +75,9 @@ from localStorage.
 2. **A question is answered once, except a wrong one may be undone.** Undo exists for misclicks:
    it blanks the slot and takes the error back, only while the test is open. A right answer is
    final. Trade-off: after an undo the user has already seen the right letter.
-3. **A test completes when all 30 questions are answered, or when its 30 minutes are up.** Only
-   time with the test page open counts. The server refuses to close it earlier.
+3. **A test completes when the user presses Finish (all 30 answered), or when its 30 minutes are
+   up.** Answering the 30th never auto-completes, so its undo still works. Only time with the test
+   page open counts. The server refuses to close it earlier.
 4. **A blank answer is an error once time runs out.** Same as the DGT exam.
 5. **Pass is ≤ 3 errors** (`MAX_MISTAKES_TO_PASS`).
 6. **Every test is kept.** My tests lists every started and every completed test, not just the latest one.

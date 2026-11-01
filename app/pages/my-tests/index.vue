@@ -8,7 +8,7 @@ const { data: started } = useUserFetch<StartedAttemptSummary[]>({ url: '/api/sta
 </script>
 
 <template>
-  <section class="flex flex-col gap-6">
+  <section class="flex flex-col gap-6 pb-24">
     <h1 class="text-3xl font-black">
       {{ t('myTests.title') }}
     </h1>
@@ -30,13 +30,10 @@ const { data: started } = useUserFetch<StartedAttemptSummary[]>({ url: '/api/sta
         {{ t('myTests.completed') }}
       </h2>
     </template>
-    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      <MyTestsNewTestCard />
-      <MyTestsTestCard
-        v-for="summary in tests ?? []"
-        :key="summary.id"
-        :summary="summary"
-      />
-    </div>
+    <MyTestsCompletedTable
+      v-if="tests?.length"
+      :tests="tests"
+    />
+    <MyTestsNewTestFab />
   </section>
 </template>

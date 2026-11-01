@@ -1,8 +1,9 @@
 <script setup lang="ts">
-/// Previous / next. Once every question is answered, the right button opens the result instead.
+/// Previous / next. On the last question, next becomes finish (enabled once all are answered).
+/// Once completed, the right button opens the result instead.
 /// Root is `contents`: the buttons and the default slot (between them) lay out in the parent.
-defineProps<{ isFirst: boolean, isLast: boolean, resultPath?: string }>()
-const emit = defineEmits<{ previous: [], next: [] }>()
+defineProps<{ isFirst: boolean, isLast: boolean, canFinish: boolean, resultPath?: string }>()
+const emit = defineEmits<{ previous: [], next: [], finish: [] }>()
 const { t } = useI18n()
 </script>
 
@@ -24,8 +25,15 @@ const { t } = useI18n()
       {{ t('test.result') }}
     </NbButton>
     <NbButton
+      v-else-if="isLast"
+      variant="dark"
+      :disabled="!canFinish"
+      @click="emit('finish')"
+    >
+      {{ t('test.finish') }}
+    </NbButton>
+    <NbButton
       v-else
-      :disabled="isLast"
       @click="emit('next')"
     >
       {{ t('test.next') }}
