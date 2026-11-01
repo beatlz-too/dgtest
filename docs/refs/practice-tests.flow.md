@@ -3,7 +3,7 @@
 > **Execution reference.** The order a practice session happens in, and why that order. For what it
 > is made of, see `practice-tests.ref.md`.
 
-Identify the browser → start a test → answer → time up → review.
+Identify the browser → start a test → answer → pause and resume → time up → review.
 
 ---
 
@@ -47,8 +47,8 @@ sequenceDiagram
   E-->>P: replace with /test/:attemptId/1
 ```
 
-The row exists before the first question shows, so its `created_at` is the start of the clock. A
-refresh or a different device sees the same time left. If the server answers 401 (it forgot the
+The row exists before the first question shows. The clock lives on the row, so a refresh or a
+different device sees the same time left. If the server answers 401 (it forgot the
 user), the page gets a fresh id and starts once more.
 
 ---
@@ -76,6 +76,32 @@ The page loads the test fresh on every question, so counters and earlier picks a
 the row. Answering the 30th question completes the test in the same write. Then the right button
 becomes "See result".
 
+A wrong pick shows Undo. `POST /api/undo-answer` → `undoAnswer` (wrong and open? else 409) →
+`clearAnswerService` blanks the slot and takes back one answered and one error. The question is
+pickable again.
+
+---
+
+## Pause and resume
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant P as question page<br>app/pages/test/[id]/[question].vue
+  participant C as useTestPause<br>app/composables/useTestPause.ts
+  participant E as resume-test · pause-test<br>server/api/*.post.ts
+  participant H as resumeTest · pauseTest<br>server/handlers/attempts/
+  P->>E: on load: POST resume-test
+  E->>H: resumed_at = now (kept if already running)
+  H-->>P: secondsLeft → countdown
+  C->>E: leave the test or close the tab: POST pause-test (keepalive)
+  E->>H: elapsed_seconds += now − resumed_at, resumed_at = NULL
+  C->>E: back from bfcache: resume again, restart countdown
+```
+
+Only time with the page open counts. Moving between questions of one test is not leaving it, so
+the clock keeps running. A tab killed without `pagehide` leaves the clock running until reopened.
+
 ---
 
 ## Time up
@@ -87,13 +113,13 @@ sequenceDiagram
   participant E as finish-test<br>server/api/finish-test.post.ts
   participant H as finishTest<br>server/handlers/attempts/finishTest.ts
   P->>E: timer hits 0:00
-  E->>H: 30 min since created_at? (10 s slack for clock drift)
-  H->>H: blanks → errors, completed
-  E-->>P: go to /my-tests/:attemptId
+  E->>H: 30 min elapsed? (10 s slack for clock drift)
+  H->>H: blanks → errors, completed, clock stopped
+  E-->>P: final counters → go to /my-tests/:attemptId
 ```
 
-The server checks the time itself, so a test can't be closed early. A test left open past its time
-stays incomplete until reopened from "Started tests". The page then sees 0:00 and closes it.
+The server checks the time itself, so a test can't be closed early. The page copies the returned
+counters into its cached test, so the review shows blanks as errors without a refetch.
 
 ---
 

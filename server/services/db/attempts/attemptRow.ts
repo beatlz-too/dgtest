@@ -5,13 +5,15 @@ import type { Attempt } from '#shared/types/attempts'
 /// `q1`…`q30`, in test order.
 export const SLOT_COLUMNS = Array.from({ length: QUESTIONS_PER_TEST }, (_, index) => `q${index + 1}`)
 
-export type AttemptRow = Record<string, string | number> & {
+export type AttemptRow = Record<string, string | number | null> & {
   id: string
   user_id: string
   is_completed: number
   total_answered: number
   total_errors: number
   created_at: string
+  elapsed_seconds: number
+  resumed_at: string | null
 }
 
 export function attemptFromRow({ row }: { row: AttemptRow }): { attempt: Attempt } {
@@ -24,6 +26,8 @@ export function attemptFromRow({ row }: { row: AttemptRow }): { attempt: Attempt
       totalAnswered: row.total_answered,
       totalErrors: row.total_errors,
       createdAt: row.created_at,
+      elapsedSeconds: row.elapsed_seconds,
+      resumedAt: row.resumed_at ?? undefined,
     },
   }
 }

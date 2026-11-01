@@ -15,7 +15,7 @@ const label = computed(() => {
   <div
     role="timer"
     :aria-label="t('test.timer')"
-    class="border-2 border-dark px-3 py-1 font-mono text-xl font-black tabular-nums shadow-nb-sm"
+    class="flex items-center justify-center text-center border-2 border-dark px-3 py-1 font-mono text-xl font-black tabular-nums shadow-nb-sm"
     :class="secondsLeft <= TEST_WARNING_SECONDS ? 'bg-danger text-light' : 'bg-white text-dark'"
   >
     {{ label }}

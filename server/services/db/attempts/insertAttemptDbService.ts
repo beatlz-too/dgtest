@@ -2,7 +2,7 @@ import type { Attempt } from '#shared/types/attempts'
 import { openDatabase } from '../openDatabase'
 import { SLOT_COLUMNS, slotValues } from './attemptRow'
 
-const COLUMNS = ['id', 'user_id', ...SLOT_COLUMNS, 'is_completed', 'total_answered', 'total_errors', 'created_at']
+const COLUMNS = ['id', 'user_id', ...SLOT_COLUMNS, 'is_completed', 'total_answered', 'total_errors', 'created_at', 'elapsed_seconds', 'resumed_at']
 const SQL = `INSERT INTO tests (${COLUMNS.join(', ')}) VALUES (${COLUMNS.map(() => '?').join(', ')})`
 
 export function insertAttemptDbService({ dbPath, attempt }: { dbPath: string, attempt: Attempt }): { id: string } {
@@ -15,6 +15,8 @@ export function insertAttemptDbService({ dbPath, attempt }: { dbPath: string, at
     attempt.totalAnswered,
     attempt.totalErrors,
     attempt.createdAt,
+    attempt.elapsedSeconds,
+    attempt.resumedAt ?? null,
   )
   return { id: attempt.id }
 }

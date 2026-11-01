@@ -11,8 +11,8 @@ export default defineEventHandler(async (event) => {
   if (typeof body?.attemptId !== 'string') throw createError({ statusCode: 400, message: 'attemptId must be a string' })
 
   const { dbPath } = loadConfig({ event })
-  const { status } = finishTest({ dbPath, userId, id: body.attemptId })
+  const { status, ...counters } = finishTest({ dbPath, userId, id: body.attemptId })
   if (status === 'not_found') throw createError({ statusCode: 404, message: 'test not found' })
   if (status === 'time_left') throw createError({ statusCode: 409, message: 'time is not up yet' })
-  return { isCompleted: true }
+  return counters
 })

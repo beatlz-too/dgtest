@@ -27,12 +27,12 @@
     "pipeline": "practice-tests",
     "type": "ref",
     "path": "docs/refs/practice-tests.ref.md",
-    "description": "What the DGT practice feature is made of: the flat 766-question bank (server/assets/questions.json), the SQLite users and tests tables (q1…q30 JSON slots {question, answer?}, is_completed, total_answered, total_errors; legacy table dropped on open), the localStorage user id, the seven /api routes (create-user, start-test, attempt, test-answer, finish-test, my-tests, started-tests) with params and errors, the pages and their routes, NUXT_DB_PATH, and invariants (reveal only after answering, answer once, complete at 30 answers or time up, blank = error, pass ≤ 3 errors, tests never translated)."
+    "description": "What the DGT practice feature is made of: the flat 766-question bank (server/assets/questions.json), the SQLite users and tests tables (q1…q30 JSON slots {question, answer?}, is_completed, total_answered, total_errors, elapsed_seconds, resumed_at; legacy table dropped on open), the localStorage user id, the ten /api routes (create-user, start-test, attempt, test-answer, undo-answer, resume-test, pause-test, finish-test, my-tests, started-tests) with params and errors, the pages and their routes, NUXT_DB_PATH, and invariants (reveal only after answering, answer once (a wrong one may be undone), complete at 30 answers or 30 min of open-page time, blank = error, pass ≤ 3 errors, tests never translated)."
   },
   {
     "pipeline": "practice-tests",
     "type": "flow",
     "path": "docs/refs/practice-tests.flow.md",
-    "description": "How a practice session moves: anonymous user creation on first mount, starting a test (30 random questions stored as a row whose created_at starts the clock), answering one question at a time with instant green/red grading on the server, closing on timeout (server-checked, blanks become errors), and reading back My tests and the review."
+    "description": "How a practice session moves: anonymous user creation on first mount, starting a test (30 random questions stored as a row that holds the clock), answering one question at a time with instant green/red grading on the server, undoing a wrong pick, the clock pausing when the page is left and resuming when reopened, closing on timeout (server-checked, blanks become errors), and reading back My tests and the review."
   }
 ]

@@ -19,6 +19,7 @@
     "next": "Siguiente",
     "timer": "Tiempo restante",
     "result": "Ver resultado",
+    "undo": "Deshacer",
     "errors": "Errores: {count}",
     "finishFailed": "No se pudo cerrar el test. Recarga para reintentar."
   },

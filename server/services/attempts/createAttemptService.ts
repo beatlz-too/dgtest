@@ -18,6 +18,7 @@ export function createAttemptService({ dbPath, userId, questionIds, newId = rand
     totalAnswered: 0,
     totalErrors: 0,
     createdAt: now().toISOString(),
+    elapsedSeconds: 0,
   }
   insertAttemptDbService({ dbPath, attempt })
   return { attempt }

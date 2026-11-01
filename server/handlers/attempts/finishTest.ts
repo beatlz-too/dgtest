@@ -1,24 +1,35 @@
 import { TEST_DURATION_SECONDS } from '#shared/constants/tests'
+import type { AttemptCounters } from '#shared/types/attempts'
 import { closeAttemptService } from '../../services/attempts/closeAttemptService'
+import { elapsedSecondsService } from '../../services/attempts/elapsedSecondsService'
 import { findAttemptService } from '../../services/attempts/findAttemptService'
+import { pauseAttemptService } from '../../services/attempts/pauseAttemptService'
 import { saveAttemptService } from '../../services/attempts/saveAttemptService'
 
 /// The browser's clock may run a little ahead of the server's.
-const CLOCK_SKEW_MS = 10_000
+const CLOCK_SKEW_SECONDS = 10
 
-/// Closes a test whose 30 minutes are up. Before that, a test only completes by answering all of it.
+/// Closes a test whose 30 minutes of open-page time are up. Before that, a test only completes by
+/// answering all of it.
 export function finishTest({ dbPath, userId, id, now = new Date() }: {
   dbPath: string
   userId: string
   id: string
   now?: Date
-}): { status: 'finished' | 'already_completed' | 'time_left' | 'not_found' } {
-  const { attempt } = findAttemptService({ dbPath, id, userId })
-  if (!attempt) return { status: 'not_found' }
-  if (attempt.isCompleted) return { status: 'already_completed' }
-  const endsAt = Date.parse(attempt.createdAt) + TEST_DURATION_SECONDS * 1000 - CLOCK_SKEW_MS
-  if (now.getTime() < endsAt) return { status: 'time_left' }
+}):
+  | ({ status: 'finished' | 'already_completed' } & AttemptCounters)
+  | { status: 'time_left' | 'not_found' } {
+  const { attempt: found } = findAttemptService({ dbPath, id, userId })
+  if (!found) return { status: 'not_found' }
+  if (found.isCompleted) return { status: 'already_completed', ...counters({ attempt: found }) }
+  const { elapsedSeconds } = elapsedSecondsService({ attempt: found, now })
+  if (elapsedSeconds < TEST_DURATION_SECONDS - CLOCK_SKEW_SECONDS) return { status: 'time_left' }
 
-  saveAttemptService({ dbPath, attempt: closeAttemptService({ attempt }).attempt })
-  return { status: 'finished' }
+  const { attempt: paused } = pauseAttemptService({ attempt: found, now })
+  const { attempt } = saveAttemptService({ dbPath, attempt: closeAttemptService({ attempt: paused }).attempt })
+  return { status: 'finished', ...counters({ attempt }) }
+}
+
+function counters({ attempt }: { attempt: AttemptCounters }): AttemptCounters {
+  return { isCompleted: attempt.isCompleted, totalAnswered: attempt.totalAnswered, totalErrors: attempt.totalErrors }
 }

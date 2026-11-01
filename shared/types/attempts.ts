@@ -18,6 +18,10 @@ export type Attempt = AttemptCounters & {
   userId: string
   slots: AttemptSlot[]
   createdAt: string
+  /// Seconds the test page was open, up to the last pause.
+  elapsedSeconds: number
+  /// When the page last opened it; absent while paused.
+  resumedAt?: string
 }
 
 /// A question inside a test. `correctAnswer` is present once answered, or once the test is completed.

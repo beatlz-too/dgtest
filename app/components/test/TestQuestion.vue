@@ -2,8 +2,14 @@
 import type { AttemptQuestion } from '#shared/types/attempts'
 import type { AnswerLetter } from '#shared/types/tests'
 
-const { question, disabled = false } = defineProps<{ question: AttemptQuestion, disabled?: boolean }>()
-const emit = defineEmits<{ choose: [letter: AnswerLetter] }>()
+const { question, disabled = false, canUndo = false } = defineProps<{
+  question: AttemptQuestion
+  disabled?: boolean
+  canUndo?: boolean
+}>()
+const emit = defineEmits<{ choose: [letter: AnswerLetter], undo: [] }>()
+const { t } = useI18n()
+const isWrong = computed(() => !!question.answer && question.answer !== question.correctAnswer)
 
 /// Once answered, the question locks: the right answer turns green, and a wrong pick turns red.
 function answerClass(letter: AnswerLetter): string {
@@ -27,7 +33,7 @@ function answerClass(letter: AnswerLetter): string {
       class="max-h-[50vh] w-full border-2 border-dark bg-white object-contain lg:max-h-[calc(100vh-16rem)]"
     >
     <div class="flex flex-col gap-4">
-      <h2 class="text-lg font-bold">
+      <h2 class="text-lg font-bold lg:text-2xl">
         {{ question.text }}
       </h2>
       <ul class="flex flex-col gap-3">
@@ -48,6 +54,15 @@ function answerClass(letter: AnswerLetter): string {
           </button>
         </li>
       </ul>
+      <NbButton
+        v-if="canUndo && isWrong"
+        variant="light"
+        class="self-start"
+        :disabled="disabled"
+        @click="emit('undo')"
+      >
+        {{ t('test.undo') }}
+      </NbButton>
     </div>
   </div>
 </template>

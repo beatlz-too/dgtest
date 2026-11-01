@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { QUESTIONS_PER_TEST, TEST_DURATION_SECONDS } from '#shared/constants/tests'
+import { QUESTIONS_PER_TEST } from '#shared/constants/tests'
 
 definePageMeta({ layout: 'test' })
 const { t } = useI18n()
@@ -7,12 +7,12 @@ const route = useRoute()
 const attemptId = String(route.params.id)
 const position = computed(() => Number(route.params.question))
 
-const { view, error, choosing, choose, finish } = await useTestAttempt({ attemptId })
+const { view, error, choosing, choose, undo, resume, pause, finish } = await useTestAttempt({ attemptId })
 const question = computed(() => view.value?.questions[position.value - 1])
 const reviewPath = `/my-tests/${attemptId}`
 
-const startedAt = view.value ? Date.parse(view.value.startedAt) : Date.now()
-const { secondsLeft } = useCountdown({ startedAt, durationSeconds: TEST_DURATION_SECONDS })
+const { secondsLeft, restart } = useCountdown({ secondsLeft: await resume() })
+useTestPause({ pause, onReturn: async () => restart({ secondsLeft: await resume() }) })
 const finishFailed = ref(false)
 
 const goTo = (to: number) => navigateTo(`/test/${attemptId}/${to}`)
@@ -34,7 +34,7 @@ watch(secondsLeft, left => left === 0 && timeUp(), { immediate: true })
 </script>
 
 <template>
-  <div>
+  <div class="pb-20 sm:pb-0">
     <TestStatus
       :seconds-left="secondsLeft"
       :answered="view?.totalAnswered ?? 0"
@@ -54,7 +54,9 @@ watch(secondsLeft, left => left === 0 && timeUp(), { immediate: true })
       <TestQuestion
         :question="question"
         :disabled="choosing"
+        :can-undo="!view.isCompleted"
         @choose="letter => choose({ position, letter })"
+        @undo="undo({ position })"
       />
       <p
         v-if="finishFailed"
@@ -62,13 +64,30 @@ watch(secondsLeft, left => left === 0 && timeUp(), { immediate: true })
       >
         {{ t('test.finishFailed') }}
       </p>
-      <TestNav
-        :is-first="position === 1"
-        :is-last="position === QUESTIONS_PER_TEST"
-        :result-path="view.isCompleted ? reviewPath : undefined"
-        @previous="goTo(position - 1)"
-        @next="goTo(position + 1)"
-      />
+      <div class="hidden justify-between gap-3 sm:flex">
+        <TestNav
+          :is-first="position === 1"
+          :is-last="position === QUESTIONS_PER_TEST"
+          :result-path="view.isCompleted ? reviewPath : undefined"
+          @previous="goTo(position - 1)"
+          @next="goTo(position + 1)"
+        />
+      </div>
+      <footer class="fixed inset-x-0 bottom-0 z-50 grid grid-cols-4 gap-2 border-t-2 border-dark bg-white p-2 text-sm font-black *:px-1! sm:hidden">
+        <TestNav
+          :is-first="position === 1"
+          :is-last="position === QUESTIONS_PER_TEST"
+          :result-path="view.isCompleted ? reviewPath : undefined"
+          @previous="goTo(position - 1)"
+          @next="goTo(position + 1)"
+        >
+          <TestErrors :errors="view.totalErrors" />
+          <TestTimer
+            :seconds-left="secondsLeft"
+            class="text-base!"
+          />
+        </TestNav>
+      </footer>
     </div>
   </div>
 </template>

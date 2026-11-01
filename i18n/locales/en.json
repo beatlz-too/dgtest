@@ -19,6 +19,7 @@
     "next": "Next",
     "timer": "Time left",
     "result": "See result",
+    "undo": "Undo",
     "errors": "Errors: {count}",
     "finishFailed": "Could not close your test. Reload to try again."
   },
