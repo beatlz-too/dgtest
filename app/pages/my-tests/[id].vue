@@ -1,10 +1,19 @@
 <script setup lang="ts">
 import { MAX_MISTAKES_TO_PASS, QUESTIONS_PER_TEST } from '#shared/constants/tests'
-import type { AttemptView } from '#shared/types/attempts'
+import type { AttemptQuestion, AttemptView } from '#shared/types/attempts'
 
 const { t, d } = useI18n()
 const id = String(useRoute().params.id)
-const { data, error } = useUserFetch<AttemptView>({ url: '/api/attempt', query: { id } })
+const { data, error } = useUserFetch<AttemptView>({ url: '/api/attempt', query: { id }, deep: true })
+const { saveExplanation } = useSaveExplanation()
+/// One explanation open at a time.
+const openId = ref<number>()
+const toggle = (questionId: number) => openId.value = openId.value === questionId ? undefined : questionId
+
+async function explain(question: AttemptQuestion, explanation: string) {
+  question.explanation = await saveExplanation({ questionId: question.id, explanation })
+  openId.value = question.id
+}
 const title = computed(() => data.value
   ? t('review.title', { date: d(new Date(data.value.startedAt), { dateStyle: 'medium', timeStyle: 'short' }) })
   : t('myTests.title'))
@@ -40,7 +49,14 @@ const passed = computed(() => data.value && data.value.totalErrors <= MAX_MISTAK
         :key="question.id"
         :position="index + 1"
         :question="question"
-      />
+      >
+        <ReviewExplanation
+          :explanation="question.explanation"
+          :open="openId === question.id"
+          @toggle="toggle(question.id)"
+          @save="text => explain(question, text)"
+        />
+      </ReviewQuestion>
     </template>
   </section>
 </template>

@@ -28,6 +28,9 @@ export type Attempt = AttemptCounters & {
 export type AttemptQuestion = PublicQuestion & {
   answer?: AnswerLetter
   correctAnswer?: AnswerLetter
+  /// Google AI Mode search explaining the question; present alongside `correctAnswer`.
+  explanationUrl?: string
+  explanation?: string
 }
 
 /// A test as the browser sees it, for taking it or reviewing it.
@@ -41,6 +44,8 @@ export type AttemptView = AttemptCounters & {
 export type AnswerResult = AttemptCounters & {
   isCorrect: boolean
   correctAnswer: AnswerLetter
+  explanationUrl: string
+  explanation?: string
 }
 
 /// One card on My tests: a completed test.

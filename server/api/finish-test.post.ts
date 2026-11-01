@@ -1,4 +1,4 @@
-// POST /api/finish-test { attemptId } — closes a test whose time is up; blanks count as errors.
+// POST /api/finish-test { attemptId } — closes a test fully answered or out of time; blanks count as errors.
 import { createError, defineEventHandler, getHeader, readBody } from 'h3'
 import { USER_ID_HEADER } from '#shared/constants/users'
 import { loadConfig } from '../config'
@@ -13,6 +13,6 @@ export default defineEventHandler(async (event) => {
   const { dbPath } = loadConfig({ event })
   const { status, ...counters } = finishTest({ dbPath, userId, id: body.attemptId })
   if (status === 'not_found') throw createError({ statusCode: 404, message: 'test not found' })
-  if (status === 'time_left') throw createError({ statusCode: 409, message: 'time is not up yet' })
+  if (status === 'time_left') throw createError({ statusCode: 409, message: 'questions left and time is not up yet' })
   return counters
 })

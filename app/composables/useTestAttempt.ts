@@ -7,6 +7,7 @@ import type { AnswerLetter } from '#shared/types/tests'
 export async function useTestAttempt({ attemptId }: { attemptId: string }) {
   const { post } = useUserPost()
   const { ensureUserId } = useUserId()
+  const { saveExplanation } = useSaveExplanation()
   const { data: view, error } = await useUserFetch<AttemptView>({ url: '/api/attempt', query: { id: attemptId }, deep: true })
   const choosing = ref(false)
 
@@ -15,11 +16,11 @@ export async function useTestAttempt({ attemptId }: { attemptId: string }) {
     if (!view.value || !question || question.answer || choosing.value) return
     choosing.value = true
     try {
-      const { isCorrect: _, correctAnswer, ...counters } = await post<AnswerResult>({
+      const { isCorrect: _, correctAnswer, explanationUrl, explanation, ...counters } = await post<AnswerResult>({
         url: '/api/test-answer',
         body: { attemptId, position, letter },
       })
-      Object.assign(question, { answer: letter, correctAnswer })
+      Object.assign(question, { answer: letter, correctAnswer, explanationUrl, explanation })
       Object.assign(view.value, counters)
     }
     finally {
@@ -36,11 +37,20 @@ export async function useTestAttempt({ attemptId }: { attemptId: string }) {
       const counters = await post<AttemptCounters>({ url: '/api/undo-answer', body: { attemptId, position } })
       delete question.answer
       delete question.correctAnswer
+      delete question.explanationUrl
+      delete question.explanation
       Object.assign(view.value, counters)
     }
     finally {
       choosing.value = false
     }
+  }
+
+  /// Saves a pasted explanation to the question bank.
+  async function explain({ position, explanation }: { position: number, explanation: string }): Promise<void> {
+    const question = view.value?.questions[position - 1]
+    if (!question) return
+    question.explanation = await saveExplanation({ questionId: question.id, explanation })
   }
 
   /// Starts the clock on the server; returns the seconds left. 0 when there is nothing to run.
@@ -61,11 +71,11 @@ export async function useTestAttempt({ attemptId }: { attemptId: string }) {
     }))
   }
 
-  /// Only accepted once the 30 minutes are up. Brings back the final counters, blanks as errors.
+  /// Only accepted once all 30 are answered or the 30 minutes are up. Brings back the final counters, blanks as errors.
   async function finish(): Promise<void> {
     const counters = await post<AttemptCounters>({ url: '/api/finish-test', body: { attemptId } })
     if (view.value) Object.assign(view.value, counters)
   }
 
-  return { view, error, choosing, choose, undo, resume, pause, finish }
+  return { view, error, choosing, choose, undo, explain, resume, pause, finish }
 }

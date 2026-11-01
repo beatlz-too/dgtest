@@ -1,3 +1,4 @@
+import { QUESTIONS_PER_TEST } from '#shared/constants/tests'
 import type { StartedAttemptSummary } from '#shared/types/attempts'
 import { listStartedAttemptsDbService } from '../db/attempts/listStartedAttemptsDbService'
 
@@ -12,7 +13,7 @@ export function listStartedAttemptsService({ dbPath, userId }: {
       createdAt: attempt.createdAt,
       totalAnswered: attempt.totalAnswered,
       totalErrors: attempt.totalErrors,
-      nextPosition: attempt.slots.findIndex(slot => !slot.answer) + 1,
+      nextPosition: attempt.slots.findIndex(slot => !slot.answer) + 1 || QUESTIONS_PER_TEST,
     })),
   }
 }

@@ -14,7 +14,9 @@ export type Question = {
   image: string
   answers: Answer[]
   correctAnswer: AnswerLetter
+  /// Pasted in by the user from the AI Mode search; reveals the answer, so hidden until answered.
+  explanation?: string
 }
 
-/// A question as shown to someone taking a test: the right answer removed.
-export type PublicQuestion = Omit<Question, 'correctAnswer'>
+/// A question as shown to someone taking a test: the right answer and its explanation removed.
+export type PublicQuestion = Omit<Question, 'correctAnswer' | 'explanation'>

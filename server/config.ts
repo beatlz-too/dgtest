@@ -7,9 +7,10 @@ import type { H3Event } from 'h3'
 
 export type Config = {
   dbPath: string
+  questionsPath: string
 }
 
 export function loadConfig({ event }: { event: H3Event }): Config {
   const config = useRuntimeConfig(event)
-  return { dbPath: config.dbPath }
+  return { dbPath: config.dbPath, questionsPath: config.questionsPath }
 }
